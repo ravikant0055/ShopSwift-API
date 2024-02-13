@@ -5,13 +5,19 @@
 
 //inmport your routes here
  const productRouter = require("./routes/product");
+ const mongoose = require('mongoose')
+
+
+ //server required things
+ server.use(express.json());
+
 
 
  //db connection function
 
  main().catch((err)=> console.log(err));
  async function main(){
-    await mongoose.connect('mongodb://127.0.0.1:27017/myapp'); //herere give your connenctions string along with database name 
+    await mongoose.connect('mongodb://127.0.0.1:27017/myApp'); //herere give your connenctions string along with database name 
     console.log("connected successfully")
  }
 
@@ -23,5 +29,5 @@
 
 
  server.listen(process.env.PORT, ()=>{
-    console.log("server is runnong ... ")
+    console.log("server is running ... ")
  });
