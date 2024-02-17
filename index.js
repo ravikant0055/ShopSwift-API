@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 // creating web server
 const express = require('express')
 const server = express();  // creating instance of web server
@@ -21,7 +21,7 @@ server.use('/product',productRouter.routes);
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/shop');
+  await mongoose.connect(process.env.DB_CONNECTION_STRING);
     console.log("Database connected")
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
