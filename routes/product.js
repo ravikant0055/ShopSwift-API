@@ -10,6 +10,8 @@ productRouter
 
 .patch("/updateProduct/:product_id", productController.updateProduct)
 
+.delete("/deleteProduct/:product_id" ,productController.deleteProduct)
+
 exports.routes = productRouter;
 
 
