@@ -1,27 +1,32 @@
-//the starting page of backend
- const express = require('express');  // web server creating
 
- const server  = express(); //instance of server
-
-//inmport your routes here
- const productRouter = require("./routes/product");
-
-
- //db connection function
-
- main().catch((err)=> console.log(err));
- async function main(){
-    await mongoose.connect('mongodb://127.0.0.1:27017/myapp'); //herere give your connenctions string along with database name 
-    console.log("connected successfully")
- }
+// creating web server
+const express = require('express')
+const server = express();  // creating instance of web server
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser');
+const productRouter = require("./routes/product")
+const cors = require('cors');
 
 
- //middleware
+server.use(express.json());
+server.use()
+server.use(bodyParser.json());
+server.use(
+    bodyParser.urlencoded({
+      extended: true,
+    }),
+  );
+server.use('/product',productRouter.routes);
 
- server.use("/product", productRouter.routes);
- server.use(express.json);
+main().catch(err => console.log(err));
+
+async function main() {
+  await mongoose.connect('mongodb://127.0.0.1:27017/shop');
+    console.log("Database connected")
+  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+}
 
 
- server.listen(process.env.PORT, ()=>{
-    console.log("server is runnong ... ")
- });
+server.listen(5000, ()=>{
+    console.log("Server is Running...")
+})

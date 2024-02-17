@@ -1,19 +1,15 @@
-//creating web server
-const express = require('express'); 
-
-//creating instance of Router from express library
+const express =  require('express');
 const productRouter = express.Router();
 
-//import your controller here
 const productController = require('../controller/product')
 
-
-//define your routes here 
-
 productRouter
-.get('/',productController.getAllProducts);
+.get("/", productController.getAllProducts)
 
-//like this you can create your all routes here (post, get, delete , update)
+.post("/addProduct", productController.addProducts)
 
-//export your route named as "routes"
+.patch("/updateProduct/:product_id", productController.updateProduct)
+
 exports.routes = productRouter;
+
+

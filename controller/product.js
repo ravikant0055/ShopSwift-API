@@ -1,12 +1,36 @@
-const model = require("../model/product");   //PATH_OF_MODEL
+const model = require('../model/product');
 
-
-//
 const Product = model.Product;
 
-//creating controller for feting all product details
-exports.getAllProducts = async(req,res)=>{
-    const products = await Product.find(); // this will fetch all product form the db
-}
 
-//like this creat your controller fucntion here
+
+exports.getAllProducts = async(req,res)=>{
+    try{
+        const product = await Product.find();
+        res.json(product);
+        }catch(err){
+            console.log("Error => ", err);
+        }
+    }
+
+    exports.addProducts = async(req,res)=>{
+        try{
+            const addProduct = new Product(req.body)
+            await addProduct.save().then(()=>{
+                res.json(req.body);
+            })
+        }catch(err){
+            console.log("Error => ",err)
+        }
+    }
+
+
+    exports.updateProduct = async(req,res)=>{
+        try{
+            const updatedProduct = await Product.findOneAndUpdate({product_id: req.params.product_id}, req.body , {new:true});
+            res.status(200).json(updatedProduct);
+
+        }catch(err){
+            console.log("Error => ", err);
+        }
+    }
