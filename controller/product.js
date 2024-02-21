@@ -12,7 +12,14 @@ exports.getAllProducts = async (req, res) => {
 };
 
 exports.addProducts = async (req, res) => {
+  
+
   try {
+    const existingProduct = await Product.findOne({ product_id: req.body.product_id });
+  if (existingProduct) {
+    
+    return res.status(400).json('Product with the same product_id already exists' );
+  }
     const addProduct = new Product(req.body);
     await addProduct.save().then(() => {
       res.json(req.body);
