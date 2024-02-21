@@ -1,11 +1,13 @@
 //the starting page of backend
  const express = require('express');  // web server creating
-
  const server  = express(); //instance of server
 
 //inmport your routes here
  const productRouter = require("./routes/product");
+ const userRouter = require("./routes/userRoutes")
+ const wishlistRouter = require('./routes/wishlistRoutes')
  const mongoose = require('mongoose')
+ require('dotenv').config();
 
 
  //server required things
@@ -24,7 +26,9 @@
 
  //middleware
 
- server.use("/product", productRouter.routes);
+ server.use("/", productRouter.routes);
+ server.use('/', userRouter.routes)
+ server.use('/', wishlistRouter.routes)
  server.use(express.json);
 
 
