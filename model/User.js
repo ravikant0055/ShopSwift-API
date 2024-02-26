@@ -32,16 +32,11 @@ const userSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref: "Orders"
     }],
-    wishlist : [{
-        type: Schema.Types.ObjectId,
-        ref: "Wishlist"
-    }],
     cart : [{
         type: Schema.Types.ObjectId,
         ref : "Cart"
     }]
 
-    
 },
 {timestamps: true})
 

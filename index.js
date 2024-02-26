@@ -6,6 +6,7 @@
  const productRouter = require("./routes/product");
  const userRouter = require("./routes/userRoutes")
  const wishlistRouter = require('./routes/wishlistRoutes')
+ const orderRouter = require('./routes/orderRoutes')
  const mongoose = require('mongoose')
  require('dotenv').config();
 
@@ -29,6 +30,8 @@
  server.use("/", productRouter.routes);
  server.use('/', userRouter.routes)
  server.use('/', wishlistRouter.routes)
+ server.use('/', productRouter.routes)
+ server.use('/', orderRouter.routes)
  server.use(express.json);
 
 

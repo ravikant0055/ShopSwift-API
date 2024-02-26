@@ -8,12 +8,11 @@ const wishlistSchema = new Schema({
             required: [true, "Enter UserId."]
         }, 
         products: [{
-            // type: Schema.Types.ObjectId,
-            // ref: 'Product'
-            type: String,
-            required: [true, "Enter UserId."]
+            type: Schema.Types.ObjectId,
+            ref: 'Product'
         }]
-    }
+    },
+    {timestamps: true}
 // }
 )
 

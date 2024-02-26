@@ -7,8 +7,12 @@ const jwt = require('jsonwebtoken')
 
 exports.getAllUsers = async (req, res) => {
     try {
-        const users = await User.find();
-        return res.status(200).json({success:true, users });
+        const users = await User.find().then((res) => {
+            return res.status(200).json({success:true, users });
+        }).catch(err => {
+            return res.status(400).json({success:false, error: err.message, message:"Unable to find User."})
+        })
+        
     } catch (error) {
         console.error("Error fetching users:", error);
         return res.status(500).json({ success: false, error: error.message, message: 'Failed to fetch users.' });
@@ -73,5 +77,28 @@ exports.loginUser = async(req, res) => {
     }
     catch(err){
         return res.status(500).json({status: false, message: 'Failed to Login User.', error: err.message})
+    }
+}
+
+exports.updateUser = async (req, res) => {
+    try{
+        const {userId, userDetails} = req.body;
+        const user = await User.findById(userId);
+        if(user){
+            await User.findByIdAndUpdate(userId, {...userDetails}, {new: true}).then(resp => {
+                return res.status(200).json({
+                    success: true,
+                    updatedUser: resp,
+                    message: "User Updated successfully."
+                })
+            })
+        }
+        return res.status(400).json({
+            success: false,
+            messaga: "No user exists for given Id"
+        })
+    }
+    catch(err){
+
     }
 }
