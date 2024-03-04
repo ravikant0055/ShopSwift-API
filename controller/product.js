@@ -2,6 +2,8 @@ const model = require("../model/product");
 
 const Product = model.Product;
 
+
+
 exports.getAllProducts = async (req, res) => {
   try {
     const product = await Product.find();
@@ -25,7 +27,7 @@ exports.addProducts = async (req, res) => {
       res.json(req.body);
     });
   } catch (err) {
-    console.log("Error => ", err);
+    res.status(400).json("Can not Add . Try again!")
   }
 };
 

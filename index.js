@@ -5,6 +5,7 @@ const server = express();  // creating instance of web server
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const productRouter = require("./routes/product")
+const addressRouter = require("./routes/address")
 const cors = require('cors');
 
 
@@ -17,13 +18,13 @@ server.use(
     }),
   );
 server.use('/product',productRouter.routes);
+server.use('/address', addressRouter.routes);
 
 main().catch(err => console.log(err));
 
 async function main() {
   await mongoose.connect(process.env.DB_CONNECTION_STRING);
     console.log("Database connected")
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 
 
